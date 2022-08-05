@@ -38,7 +38,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/swagger-ui.html", "/swagger-ui/**", "/api-docs/**").permitAll()
 
-                .antMatchers(HttpMethod.GET,"/user/login/**", "/token/refresh/**", "/video/explore/**", "/video/likes/**", "/video/dislikes/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/user/login/**", "/token/refresh/**", "/user/resendcode/**", "/video/explore/**", "/video/likes/**", "/video/dislikes/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/user/registration/**", "/user/verify/**").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/video/my/**", "/video/myreaction/**").hasAuthority("ROLE_USER")

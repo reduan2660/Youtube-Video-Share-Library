@@ -116,6 +116,16 @@ public class AppUserService implements UserDetailsService {
     }
 
     /**
+     * Resends verification code
+     * @param user AppUser
+     * @param siteurl baseurl
+     */
+    public Boolean resendVerification(AppUser user, String siteurl){
+        emailService.sendVerificationCode(user, siteurl);
+        return true;
+    }
+
+    /**
      * Save a role | Used by Admin
      * @param role role object
      * @return saved role

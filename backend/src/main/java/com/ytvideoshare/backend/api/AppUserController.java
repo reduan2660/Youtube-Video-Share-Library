@@ -97,6 +97,26 @@ public class AppUserController {
     }
 
     /**
+     * Resends verification email
+     * @param request HttpServletRequest object
+     * @return Status
+     */
+    @Operation(summary = "Resends verification email")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Resends verification email",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = HashMap.class)) }),
+            @ApiResponse(responseCode = "403", description = "Invalid token"),
+    })
+    @GetMapping("/user/resendcode")
+    public ResponseEntity<Map<String, Boolean>> resendVerificationCode(HttpServletRequest request){
+        Map<String, Boolean> status = new HashMap<>();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        status.put("Status", appUserService.resendVerification(appUserService.getUser((String) auth.getPrincipal()), getSiteURL(request)));
+        return ResponseEntity.ok().body(status);
+    }
+
+    /**
      * Verify user's email
      * @param code Int value as parameter
      * @param email String value as parameter
