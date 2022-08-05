@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,20 +27,25 @@ public class VideoService {
      * @param owner AppUser who uploaded the video
      * @return VideoResponse
      */
-    public VideoResponse saveVideo(VideoRequest videoRequest, AppUser owner){
+    public VideoResponse saveVideo(VideoRequest videoRequest, AppUser owner) throws AccessDeniedException {
 
-        Video video = Video.builder()
-                        .name(videoRequest.getName())
-                        .ytlink(videoRequest.getYtlink())
-                        .owner(owner)
-                        .published(true)
-                        .likes(0L)
-                        .dislikes(0L)
-                        .views(0L)
-                        .build();
-        Video savedVideo = videoRepo.save(video);
+        if(owner.isVerified()) {
+            Video video = Video.builder()
+                    .name(videoRequest.getName())
+                    .ytlink(videoRequest.getYtlink())
+                    .owner(owner)
+                    .published(true)
+                    .likes(0L)
+                    .dislikes(0L)
+                    .views(0L)
+                    .build();
+            Video savedVideo = videoRepo.save(video);
 
-        return new VideoResponse(savedVideo);
+            return new VideoResponse(savedVideo);
+        }
+        else{
+            throw new AccessDeniedException("Verify your email to share a video.");
+        }
     }
 
     /**

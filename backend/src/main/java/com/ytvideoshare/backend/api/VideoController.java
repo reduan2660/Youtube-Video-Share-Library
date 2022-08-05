@@ -23,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.net.URI;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @RestController @RequiredArgsConstructor @Slf4j
@@ -53,7 +54,7 @@ public class VideoController {
                             schema = @Schema(implementation = VideoResponse.class)) })
     })
     @PostMapping("/video/upload")
-    public ResponseEntity<VideoResponse> uploadVideo(@RequestBody @Valid VideoRequest videoRequest, HttpServletRequest request){
+    public ResponseEntity<VideoResponse> uploadVideo(@RequestBody @Valid VideoRequest videoRequest, HttpServletRequest request) throws AccessDeniedException {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/registration").toUriString());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         VideoResponse videoResponse = videoService.saveVideo(videoRequest, appUserService.getUser((String) auth.getPrincipal()));
