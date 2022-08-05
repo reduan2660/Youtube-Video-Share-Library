@@ -14,12 +14,21 @@
       </div>
     </div>
   </div>
+  <LoginVue :open="loginModal" :key="loginModalKey" />
 </template>
 
 <script setup>
+import { ref } from "vue";
 import Btn from "./Btn.vue";
+import LoginVue from "../components/Login.vue";
 
-function upload() {}
+const loginModal = ref(false);
+const loginModalKey = ref(0);
+
+function upload() {
+  loginModalKey.value = Math.random();
+  loginModal.value = true;
+}
 function toggleTheme() {
   if (
     localStorage.theme === "dark" ||
