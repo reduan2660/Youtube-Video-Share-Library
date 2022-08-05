@@ -1,5 +1,6 @@
 package com.ytvideoshare.backend.api;
 
+import com.ytvideoshare.backend.Exception.ResourceNotFound;
 import com.ytvideoshare.backend.domain.AppUser;
 import com.ytvideoshare.backend.domain.Video;
 import com.ytvideoshare.backend.dto.ReactionResponse;
@@ -19,21 +20,21 @@ public class ReactionController {
     private final AppUserService appUserService;
 
     @PostMapping("/video/like/{videoID}")
-    public ReactionResponse likeVideo(@PathVariable Long videoID){
+    public ReactionResponse likeVideo(@PathVariable Long videoID) throws ResourceNotFound {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser reactor = appUserService.getUser((String) auth.getPrincipal());
         return reactionService.reactToVideo(reactor, videoID, "like");
     }
 
     @PostMapping("/video/dislike/{videoID}")
-    public ReactionResponse dislikeVideo(@PathVariable Long videoID){
+    public ReactionResponse dislikeVideo(@PathVariable Long videoID) throws ResourceNotFound {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser reactor = appUserService.getUser((String) auth.getPrincipal());
         return reactionService.reactToVideo(reactor, videoID, "dislike");
     }
 
     @GetMapping("/video/myreaction/{videoID}")
-    public ReactionResponse myReaction(@PathVariable Long videoID){
+    public ReactionResponse myReaction(@PathVariable Long videoID) throws ResourceNotFound {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         AppUser reactor = appUserService.getUser((String) auth.getPrincipal());
         return reactionService.userReaction(reactor, videoID);
@@ -44,7 +45,7 @@ public class ReactionController {
             @PathVariable Long videoID,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "5") Integer size
-    ){
+    ) throws ResourceNotFound {
         return reactionService.videoReactions(videoID, "like", page, size);
     }
     @GetMapping("/video/dislikes/{videoID}")
@@ -52,7 +53,7 @@ public class ReactionController {
             @PathVariable Long videoID,
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "5") Integer size
-    ){
+    ) throws ResourceNotFound {
         return reactionService.videoReactions(videoID, "dislike", page, size);
     }
 

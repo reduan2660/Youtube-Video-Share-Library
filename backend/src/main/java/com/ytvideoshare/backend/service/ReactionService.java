@@ -1,5 +1,6 @@
 package com.ytvideoshare.backend.service;
 
+import com.ytvideoshare.backend.Exception.ResourceNotFound;
 import com.ytvideoshare.backend.domain.AppUser;
 import com.ytvideoshare.backend.domain.Reaction;
 import com.ytvideoshare.backend.domain.Video;
@@ -31,8 +32,9 @@ public class ReactionService {
      * @param reactionType "like" or "dislike"
      * @return ReactionResponse or null if reaction is removed
      */
-    public ReactionResponse reactToVideo(AppUser reactor, Long videoID, String reactionType){
+    public ReactionResponse reactToVideo(AppUser reactor, Long videoID, String reactionType) throws ResourceNotFound {
         Video video = videoRepo.findVideoById(videoID);
+        if(video == null) throw new ResourceNotFound("Invalid Video ID");
 //        null check for vide
         Optional<Reaction> existingReaction = reactionRepo.findByVideoAndReactor(video, reactor);
         boolean liked, disliked;
@@ -99,12 +101,15 @@ public class ReactionService {
      * @param videoID Long Vide id
      * @return ReactionResponse or null if it does not exist
      */
-    public ReactionResponse userReaction(AppUser reactor, Long videoID){
-        Video video = videoRepo.findVideoById(videoID);
-        Optional<Reaction> reaction = reactionRepo.findByVideoAndReactor(video, reactor);
+    public ReactionResponse userReaction(AppUser reactor, Long videoID) throws ResourceNotFound {
 
+        Video video = videoRepo.findVideoById(videoID);
+        if(video == null) throw new ResourceNotFound("Invalid Video ID");
+
+        Optional<Reaction> reaction = reactionRepo.findByVideoAndReactor(video, reactor);
         videoRepo.incrementViews(video.getId());
         return reaction.map(ReactionResponse::new).orElse(null);
+
     }
 
     /**
@@ -115,20 +120,23 @@ public class ReactionService {
      * @param size page size
      * @return List of ReactionResponse
      */
-    public List<ReactionResponse> videoReactions(Long videoID, String reactionType, int page, int size){
+    public List<ReactionResponse> videoReactions(Long videoID, String reactionType, int page, int size) throws ResourceNotFound {
         Pageable paging = PageRequest.of(page, size);
+
         Video video = videoRepo.findVideoById(videoID);
+        if(video == null) throw new ResourceNotFound("Invalid Video ID");
+
         List<ReactionResponse> reactionResponses = new ArrayList<>();
-        if(Objects.equals(reactionType, "like")){
+        if (Objects.equals(reactionType, "like")) {
             reactionRepo.findAllByVideoAndLikedIsTrue(video, paging).forEach(reaction -> {
                 reactionResponses.add(new ReactionResponse(reaction));
             });
-        }
-        else{
+        } else {
             reactionRepo.findAllByVideoAndDislikedIsTrue(video, paging).forEach(reaction -> {
                 reactionResponses.add(new ReactionResponse(reaction));
             });
         }
         return reactionResponses;
+
     }
 }
