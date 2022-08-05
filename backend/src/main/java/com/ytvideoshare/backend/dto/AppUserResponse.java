@@ -13,7 +13,6 @@ public class AppUserResponse{
     public Long id;
     public String name, email;
     public Boolean verified;
-    public LocalDateTime created, updated;
     public Role role;
 
     public AppUserResponse(AppUser user){
@@ -21,8 +20,6 @@ public class AppUserResponse{
         this.name = user.getName();
         this.email = user.getEmail();
         this.verified = user.isVerified();
-        this.created = user.getCreated();
-        this.updated = user.getUpdated();
         this.role = user.getRole();
     }
 }

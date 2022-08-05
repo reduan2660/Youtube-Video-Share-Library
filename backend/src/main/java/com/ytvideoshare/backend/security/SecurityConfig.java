@@ -37,8 +37,12 @@ public class SecurityConfig {
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET,"/swagger-ui.html", "/swagger-ui/**", "/api-docs/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/user/login/**", "/token/refresh/**").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/user/login/**", "/token/refresh/**", "/video/explore/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/user/registration/**", "/user/verify/**").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/video/my/**").hasAuthority("ROLE_USER")
+                .antMatchers(HttpMethod.POST, "/video/upload/**").hasAuthority("ROLE_USER")
                 .anyRequest().authenticated()
                 .and().authenticationManager(authenticationManager)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
