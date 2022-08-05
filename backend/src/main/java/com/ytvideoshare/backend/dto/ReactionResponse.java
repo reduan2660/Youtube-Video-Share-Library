@@ -9,16 +9,13 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor
 public class ReactionResponse {
     private Long id;
-//    private Video video;
-    private AppUserResponse reactor;
-
+    private String reactor;
     private Boolean liked;
     private Boolean disliked;
 
-    ReactionResponse(Reaction reaction){
+    public ReactionResponse(Reaction reaction){
         this.id = reaction.getId();
-//        this.video = reaction.getVideo();
-        this.reactor = new AppUserResponse(reaction.getReactor());
+        this.reactor = reaction.getReactor().getName();
         this.liked = reaction.getLiked();
         this.disliked = reaction.getDisliked();
     }
