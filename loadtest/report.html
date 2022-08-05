@@ -120,7 +120,7 @@ table.stats tr.total td {
 
         <div class="info">
             
-            <p>During: <span class="l10n datetime">2022-08-05 08:17:34</span> - <span class="l10n datetime">2022-08-05 08:18:54</span></p>
+            <p>During: <span class="l10n datetime">2022-08-05 08:39:49</span> - <span class="l10n datetime">2022-08-05 08:40:59</span></p>
             <p>Target Host: <span>http://localhost:8080</span></p>
             <p>Script: <span>locustfile.py</span></p>
         </div>
@@ -147,26 +147,26 @@ table.stats tr.total td {
                         <tr>
                             <td>GET</td>
                             <td>/video/explore</td>
-                            <td>70876</td>
+                            <td>58355</td>
                             <td>0</td>
-                            <td>153</td>
-                            <td>25</td>
-                            <td>786</td>
-                            <td>676</td>
-                            <td>884.6</td>
+                            <td>173</td>
+                            <td>5</td>
+                            <td>1529</td>
+                            <td>678</td>
+                            <td>837.8</td>
                             <td>0.0</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>70876</td>
+                            <td>58355</td>
                             <td>0</td>
-                            <td>153</td>
-                            <td>25</td>
-                            <td>786</td>
-                            <td>676</td>
-                            <td>884.6</td>
+                            <td>173</td>
+                            <td>5</td>
+                            <td>1529</td>
+                            <td>678</td>
+                            <td>837.8</td>
                             <td>0.0</td>
                         </tr>
                     
@@ -196,27 +196,27 @@ table.stats tr.total td {
                         <tr>
                             <td>GET</td>
                             <td>/video/explore</td>
-                            <td>140</td>
                             <td>150</td>
-                            <td>170</td>
-                            <td>200</td>
-                            <td>240</td>
-                            <td>260</td>
+                            <td>160</td>
+                            <td>180</td>
+                            <td>250</td>
+                            <td>310</td>
                             <td>350</td>
-                            <td>790</td>
+                            <td>420</td>
+                            <td>1500</td>
                         </tr>
                     
                         <tr class="total">
                             <td></td>
                             <td>Aggregated</td>
-                            <td>140</td>
                             <td>150</td>
-                            <td>170</td>
-                            <td>200</td>
-                            <td>240</td>
-                            <td>260</td>
+                            <td>160</td>
+                            <td>180</td>
+                            <td>250</td>
+                            <td>310</td>
                             <td>350</td>
-                            <td>790</td>
+                            <td>420</td>
+                            <td>1500</td>
                         </tr>
                     
                 </tbody>
@@ -507,12 +507,12 @@ function fillTasksFromRequest() {
     <script>
         
 var stats_history = {
-    "time": ["08:17:37", "08:17:42", "08:17:47", "08:17:52", "08:17:57", "08:18:02", "08:18:07", "08:18:12", "08:18:17", "08:18:22", "08:18:27", "08:18:32", "08:18:37", "08:18:42", "08:18:47", "08:18:52"].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
-    "user_count": [{"value": 110}, {"value": 150}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}, {"value": 200}],
-    "current_rps": [{"users": 110, "value": 1007.0}, {"users": 150, "value": 1044.6666666666667}, {"users": 200, "value": 1048.0}, {"users": 200, "value": 963.5}, {"users": 200, "value": 891.0}, {"users": 200, "value": 889.9}, {"users": 200, "value": 799.9}, {"users": 200, "value": 830.1}, {"users": 200, "value": 926.3}, {"users": 200, "value": 911.6}, {"users": 200, "value": 908.3}, {"users": 200, "value": 900.4}, {"users": 200, "value": 881.3}, {"users": 200, "value": 797.7}, {"users": 200, "value": 773.3}, {"users": 200, "value": 869.7}],
-    "current_fail_per_sec": [{"users": 110, "value": 0}, {"users": 150, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}, {"users": 200, "value": 0}],
-    "response_time_percentile_50": [{"users": 110, "value": 63}, {"users": 150, "value": 81}, {"users": 200, "value": 100.0}, {"users": 200, "value": 130.0}, {"users": 200, "value": 140.0}, {"users": 200, "value": 140.0}, {"users": 200, "value": 150.0}, {"users": 200, "value": 130.0}, {"users": 200, "value": 130.0}, {"users": 200, "value": 140.0}, {"users": 200, "value": 140.0}, {"users": 200, "value": 140.0}, {"users": 200, "value": 150.0}, {"users": 200, "value": 200.0}, {"users": 200, "value": 180.0}, {"users": 200, "value": 140.0}],
-    "response_time_percentile_95": [{"users": 110, "value": 100.0}, {"users": 150, "value": 120.0}, {"users": 200, "value": 160.0}, {"users": 200, "value": 240.0}, {"users": 200, "value": 300.0}, {"users": 200, "value": 290.0}, {"users": 200, "value": 310.0}, {"users": 200, "value": 280.0}, {"users": 200, "value": 250.0}, {"users": 200, "value": 280.0}, {"users": 200, "value": 270.0}, {"users": 200, "value": 270.0}, {"users": 200, "value": 260.0}, {"users": 200, "value": 260.0}, {"users": 200, "value": 240.0}, {"users": 200, "value": 260.0}],
+    "time": ["08:39:50", "08:39:55", "08:40:00", "08:40:05", "08:40:10", "08:40:15", "08:40:20", "08:40:25", "08:40:30", "08:40:35", "08:40:40", "08:40:45", "08:40:50", "08:40:55"].map(server_time => new Date(new Date().setUTCHours(...(server_time.split(":")))).toLocaleTimeString()),
+    "user_count": [{"value": 10}, {"value": 60}, {"value": 110}, {"value": 160}, {"value": 210}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}, {"value": 250}],
+    "current_rps": [{"users": 10, "value": 0}, {"users": 60, "value": 866.0}, {"users": 110, "value": 814.5555555555555}, {"users": 160, "value": 691.1}, {"users": 210, "value": 714.1}, {"users": 250, "value": 900.2}, {"users": 250, "value": 886.4}, {"users": 250, "value": 871.3}, {"users": 250, "value": 937.2}, {"users": 250, "value": 851.5}, {"users": 250, "value": 760.2}, {"users": 250, "value": 778.7}, {"users": 250, "value": 862.7}, {"users": 250, "value": 866.7}],
+    "current_fail_per_sec": [{"users": 10, "value": 0}, {"users": 60, "value": 0}, {"users": 110, "value": 0}, {"users": 160, "value": 0}, {"users": 210, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}, {"users": 250, "value": 0}],
+    "response_time_percentile_50": [{"users": 10, "value": 0}, {"users": 60, "value": 22}, {"users": 110, "value": 42}, {"users": 160, "value": 100.0}, {"users": 210, "value": 110.0}, {"users": 250, "value": 130.0}, {"users": 250, "value": 160.0}, {"users": 250, "value": 160.0}, {"users": 250, "value": 160.0}, {"users": 250, "value": 180.0}, {"users": 250, "value": 230.0}, {"users": 250, "value": 160.0}, {"users": 250, "value": 160.0}, {"users": 250, "value": 160.0}],
+    "response_time_percentile_95": [{"users": 10, "value": 0}, {"users": 60, "value": 90}, {"users": 110, "value": 160.0}, {"users": 160, "value": 230.0}, {"users": 210, "value": 280.0}, {"users": 250, "value": 360.0}, {"users": 250, "value": 370.0}, {"users": 250, "value": 350.0}, {"users": 250, "value": 350.0}, {"users": 250, "value": 370.0}, {"users": 250, "value": 370.0}, {"users": 250, "value": 350.0}, {"users": 250, "value": 330.0}, {"users": 250, "value": 320.0}],
     "markers": [],
 };
         var rpsChart = new LocustLineChart($(".charts-container"), "Total Requests per Second", ["RPS", "Failures/s"], "reqs/s", ['#00ca5a', '#ff6d6d']);
