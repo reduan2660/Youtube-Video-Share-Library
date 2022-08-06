@@ -1,5 +1,6 @@
 package com.ytvideoshare.backend.dto;
 
+import com.ytvideoshare.backend.dto.Validator.YtLinkValidation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,5 +16,6 @@ public class VideoRequest {
     private String name;
 
     @NotNull(message = "You must enter a valid youtube link.")
+    @YtLinkValidation
     private String ytlink;
 }

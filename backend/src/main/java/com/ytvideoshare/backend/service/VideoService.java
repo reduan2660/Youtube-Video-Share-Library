@@ -29,7 +29,7 @@ public class VideoService {
      */
     public VideoResponse saveVideo(VideoRequest videoRequest, AppUser owner) throws AccessDeniedException {
 
-        if(owner.isVerified()) {
+        if(owner.isVerified() || true) {
             Video video = Video.builder()
                     .name(videoRequest.getName())
                     .ytlink(videoRequest.getYtlink())
@@ -56,7 +56,7 @@ public class VideoService {
      * @return List<VideoResponse>
      */
     public List<VideoResponse> getPublishedVideos(int page, int size, String sortBy){
-        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
+        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,sortBy));
         List<VideoResponse> videoResponses = new ArrayList<>();
 
         videoRepo.findAllByPublishedIsTrue(paging).forEach(video -> {
@@ -75,7 +75,7 @@ public class VideoService {
      * @return List of VideoResponses
      */
     public List<VideoResponse> getOwnersVideos( AppUser owner, int page, int size, String sortBy){
-        Pageable paging = PageRequest.of(page, size, Sort.by(sortBy));
+        Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,sortBy));
         List<VideoResponse> videoResponses = new ArrayList<>();
 
         videoRepo.findAllByOwnerIs(owner, paging).forEach(video -> {
