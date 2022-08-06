@@ -2,6 +2,7 @@ package com.ytvideoshare.backend.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
@@ -9,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static org.springframework.core.Ordered.HIGHEST_PRECEDENCE;
+
 @Component
+@Order(HIGHEST_PRECEDENCE)
 public class CORSfilter implements Filter {
 
     private final Logger log = LoggerFactory.getLogger(CORSfilter.class);
