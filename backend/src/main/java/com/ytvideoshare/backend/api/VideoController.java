@@ -1,6 +1,7 @@
 package com.ytvideoshare.backend.api;
 
 import com.ytvideoshare.backend.Exception.DuplicateEmailException;
+import com.ytvideoshare.backend.Exception.ResourceNotFound;
 import com.ytvideoshare.backend.dto.AppUserRequest;
 import com.ytvideoshare.backend.dto.AppUserResponse;
 import com.ytvideoshare.backend.dto.VideoRequest;
@@ -82,6 +83,24 @@ public class VideoController {
             @RequestParam(defaultValue = "likes") String sortBy
     ){
         return  ResponseEntity.ok().body(videoService.getPublishedVideos(page, size, sortBy));
+    }
+
+    /**
+     * Get Video  - OPEN FOR ALL
+     * @return VideoResponses
+     */
+    @Operation(summary = "Returns a video")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return a video",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = VideoResponse.class)) })
+
+    })
+    @GetMapping("/video/det/{id}")
+    public ResponseEntity<VideoResponse> getVideo(
+            @PathVariable Long id
+    ) throws ResourceNotFound {
+        return  ResponseEntity.ok().body(videoService.getVideo(id));
     }
 
     /**

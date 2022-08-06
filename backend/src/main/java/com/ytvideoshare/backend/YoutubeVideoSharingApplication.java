@@ -29,7 +29,7 @@ public class YoutubeVideoSharingApplication {
 	@Bean
 	CommandLineRunner run(AppUserService appUserService){
 		return args -> {
-			Role adminRole = appUserService.saveRole(new Role(null, "ROLE_USER"));
+//			Role adminRole = appUserService.saveRole(new Role(null, "ROLE_USER"));
 		};
 	}
 

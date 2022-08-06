@@ -1,5 +1,6 @@
 package com.ytvideoshare.backend.service;
 
+import com.ytvideoshare.backend.Exception.ResourceNotFound;
 import com.ytvideoshare.backend.domain.AppUser;
 import com.ytvideoshare.backend.domain.Video;
 import com.ytvideoshare.backend.dto.VideoRequest;
@@ -20,6 +21,19 @@ import java.util.List;
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class VideoService {
     private final VideoRepo videoRepo;
+
+    /**
+     * Returns a video given ID and increases view counter
+     * @param videoID Long
+     * @return VideoResponse
+     * @throws ResourceNotFound if video id is invalid
+     */
+    public VideoResponse getVideo(Long videoID) throws ResourceNotFound {
+        Video video = videoRepo.findVideoById(videoID);
+        if(video == null) throw new ResourceNotFound("Invalid Video ID");
+        videoRepo.incrementViews(video.getId());
+        return new VideoResponse(video);
+    }
 
     /**
      * Saves a video

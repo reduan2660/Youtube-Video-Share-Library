@@ -96,7 +96,7 @@ public class ReactionService {
     }
 
     /**
-     * Returns user's reaction to a video and increases view counter
+     * Returns user's reaction to a video
      * @param reactor AppUser reactor
      * @param videoID Long Vide id
      * @return ReactionResponse or null if it does not exist
@@ -107,7 +107,6 @@ public class ReactionService {
         if(video == null) throw new ResourceNotFound("Invalid Video ID");
 
         Optional<Reaction> reaction = reactionRepo.findByVideoAndReactor(video, reactor);
-        videoRepo.incrementViews(video.getId());
         return reaction.map(ReactionResponse::new).orElse(null);
 
     }

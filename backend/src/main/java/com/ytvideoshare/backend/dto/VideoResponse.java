@@ -10,6 +10,7 @@ public class VideoResponse {
 
     private Long id;
     private String name;
+    private String owner;
     private String ytlink;
     private Boolean published;
     private Long views, likes, dislikes;
@@ -17,6 +18,7 @@ public class VideoResponse {
     public VideoResponse(Video video){
         this.id = video.getId();
         this.name = video.getName();
+        this.owner = video.getOwner().getName();
         this.ytlink = video.getYtlink();
         this.published = video.getPublished();
         this.views = video.getViews();
