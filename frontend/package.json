@@ -17,7 +17,8 @@
     "pinia": "^2.0.16",
     "vue": "^3.2.37",
     "vue-axios": "^3.4.1",
-    "vue-router": "^4.1.2"
+    "vue-router": "^4.1.2",
+    "vue3-cookies": "^1.0.6"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",

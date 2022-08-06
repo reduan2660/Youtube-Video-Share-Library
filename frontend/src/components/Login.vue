@@ -89,10 +89,6 @@ const props = defineProps({
 const openModal = ref(props.open);
 
 function login() {
-  const formData = new FormData();
-  formData.append("email", email.value);
-  formData.append("password", password.value);
-
   api
     .get("/user/login", {
       params: {
