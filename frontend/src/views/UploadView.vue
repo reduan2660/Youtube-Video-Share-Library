@@ -27,7 +27,7 @@
     <div class="pt-12 text-red-400">{{ errLabel }}</div>
 
     <div class="pt-12">
-      <Btn @click="upload">{{ btnLabel }}</Btn>
+      <Btn @click="upload(0)">{{ btnLabel }}</Btn>
     </div>
   </div>
 </template>
@@ -54,30 +54,55 @@ onMounted(() => {
   if (!user.loggedIn) router.push({ name: "home" });
 });
 
-function upload() {
+function upload(counter) {
   if (!uploadSuccess.value) {
-    const formData = new FormData();
-    formData.append("name", name.value);
-    formData.append("ytlink", ytlink.value);
+    if (counter < 2) {
+      errLabel.value = "";
 
-    api
-      .post(
-        "/video/upload",
-        {
-          name: name.value,
-          ytlink: ytlink.value,
-        },
-        {
-          headers: {
-            AUTHORIZATION: `Bearer ${user.access_token}`,
+      api
+        .post(
+          "/video/upload",
+          {
+            name: name.value,
+            ytlink: ytlink.value,
           },
-        }
-      )
-      .then((response) => {
-        uploadSuccess.value = true;
-        btnLabel.value = "Preview Video";
-        newVideoId.value = response.data.id;
-      });
+          {
+            headers: {
+              AUTHORIZATION: `Bearer ${user.access_token}`,
+            },
+          }
+        )
+        .then((response) => {
+          uploadSuccess.value = true;
+          btnLabel.value = "Preview Video";
+          newVideoId.value = response.data.id;
+        })
+        .catch((err) => {
+          if (err.response.status == 403) {
+            // refresh token
+            api
+              .get("/token/refresh", {
+                headers: {
+                  AUTHORIZATION: `Bearer ${user.refresh_token}`,
+                },
+              })
+              .then((refreshResponse) => {
+                user.setToken(
+                  refreshResponse.data.access_token,
+                  refreshResponse.data.refresh_token
+                );
+                upload(counter + 1);
+              })
+              .catch((err) => {
+                user.logout();
+              });
+          } else {
+            for (let key in err.response.data) {
+              errLabel.value = err.response.data[key];
+            }
+          }
+        });
+    }
   } else {
     router.push(`video/${newVideoId.value}`);
   }
