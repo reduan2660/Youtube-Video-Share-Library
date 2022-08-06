@@ -14,12 +14,12 @@
       <Btn @click="upload">
         <font-awesome-icon icon="circle-plus" /> Upload Video</Btn
       >
-      <div class="ml-10 mr-4">
+      <div @click="profile" class="ml-10 mr-4">
         <font-awesome-icon icon="user" />
       </div>
     </div>
   </div>
-  <LoginVue :open="loginModal" :onSuccess="'upload'" :key="loginModalKey" />
+  <LoginVue :open="loginModal" :onSuccess="openLoginfor" :key="loginModalKey" />
 </template>
 
 <script setup>
@@ -34,15 +34,28 @@ const router = useRouter();
 
 const loginModal = ref(false);
 const loginModalKey = ref(0);
+const openLoginfor = ref("");
 
 function upload() {
   if (user.loggedIn) {
     router.push({ name: "upload" });
   } else {
+    openLoginfor.value = "upload";
     loginModalKey.value = Math.random();
     loginModal.value = true;
   }
 }
+
+function profile() {
+  if (user.loggedIn) {
+    router.push({ name: "profile" });
+  } else {
+    openLoginfor.value = "profile";
+    loginModalKey.value = Math.random();
+    loginModal.value = true;
+  }
+}
+
 function toggleTheme() {
   if (
     localStorage.theme === "dark" ||
