@@ -1,6 +1,11 @@
 <template>
   <div class="px-4 py-4 flex justify-between">
-    <div class="font-bold">Video Library</div>
+    <div
+      @click="this.$router.push({ name: 'home' })"
+      class="font-bold cursor-pointer"
+    >
+      Video Library
+    </div>
 
     <div class="flex items-center justify-center">
       <Btn class="mr-3" @click="toggleTheme">
@@ -14,20 +19,29 @@
       </div>
     </div>
   </div>
-  <LoginVue :open="loginModal" :key="loginModalKey" />
+  <LoginVue :open="loginModal" :onSuccess="'upload'" :key="loginModalKey" />
 </template>
 
 <script setup>
 import { ref } from "vue";
 import Btn from "./Btn.vue";
 import LoginVue from "../components/Login.vue";
+import { useUserStore } from "../stores/user.js";
+import { useRouter } from "vue-router";
+
+const user = useUserStore();
+const router = useRouter();
 
 const loginModal = ref(false);
 const loginModalKey = ref(0);
 
 function upload() {
-  loginModalKey.value = Math.random();
-  loginModal.value = true;
+  if (user.loggedIn) {
+    router.push({ name: "upload" });
+  } else {
+    loginModalKey.value = Math.random();
+    loginModal.value = true;
+  }
 }
 function toggleTheme() {
   if (
