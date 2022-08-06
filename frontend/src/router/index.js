@@ -24,6 +24,11 @@ const router = createRouter({
       name: "profile",
       component: () => import("../views/ProfileView.vue"),
     },
+    {
+      path: "/myvideos",
+      name: "myvideos",
+      component: () => import("../views/MyVideoView.vue"),
+    },
   ],
 });
 

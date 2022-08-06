@@ -14,8 +14,8 @@
       <Btn @click="upload">
         <font-awesome-icon icon="circle-plus" /> Upload Video</Btn
       >
-      <div @click="profile" class="ml-10 mr-4">
-        <font-awesome-icon icon="user" />
+      <div @click="profile" class="ml-3 mr-4 cursor-pointer">
+        <Btn> <font-awesome-icon icon="user" /> </Btn>
       </div>
     </div>
   </div>

@@ -11,6 +11,10 @@
     </div>
 
     <div class="pt-12">
+      <Btn @click="myvideo">Uploaded Videos</Btn>
+    </div>
+
+    <div class="pt-12">
       <Btn @click="logout">Log out</Btn>
     </div>
   </div>
@@ -74,5 +78,9 @@ function getProfile(counter) {
 function logout() {
   user.logout();
   router.push({ name: "home" });
+}
+
+function myvideo() {
+  router.push({ name: "myvideos" });
 }
 </script>
