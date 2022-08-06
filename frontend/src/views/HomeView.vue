@@ -4,7 +4,10 @@
       class="w-screen grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 grid-flow-row gap-4 pt-10"
     >
       <div v-for="video in videos" :key="video.id">
-        <VideoVue :info="video" />
+        <VideoVue
+          @click="this.$router.push(`/video/${video.id}`)"
+          :info="video"
+        />
       </div>
     </div>
 
@@ -44,4 +47,6 @@ function loadMore() {
   page.value += 1;
   loadVideos();
 }
+
+function openVideo(id) {}
 </script>

@@ -40,7 +40,6 @@ function getThumbnail(ytlink) {
   const regexLink =
     /http(?:s?):\/\/(?:www\.)?youtu(?:be\.com\/watch\?v=|\.be\/)([\w\-\_]*)(&(amp;)?‌​[\w\?‌​=]*)?/;
   const match = ytlink.match(regexLink);
-  console.log(match[1]);
   return "http://i3.ytimg.com/vi/" + match[1] + "/hqdefault.jpg";
 }
 </script>

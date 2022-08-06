@@ -9,5 +9,5 @@ module.exports = {
       body: ['"Roboto"', '"Open Sans"'],
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/aspect-ratio")],
 };
