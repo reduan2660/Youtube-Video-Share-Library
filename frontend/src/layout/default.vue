@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-white dark:bg-gray-900 h-screen dark:text-white">
+  <div
+    class="bg-white dark:bg-gray-900 min-h-screen overflow-x-hidden dark:text-white"
+  >
     <HeaderVue />
     <router-view />
   </div>
