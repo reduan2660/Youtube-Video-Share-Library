@@ -29,7 +29,7 @@ public class VideoService {
      */
     public VideoResponse saveVideo(VideoRequest videoRequest, AppUser owner) throws AccessDeniedException {
 
-        if(owner.isVerified() || true) {
+        if(owner.isVerified()) {
             Video video = Video.builder()
                     .name(videoRequest.getName())
                     .ytlink(videoRequest.getYtlink())
