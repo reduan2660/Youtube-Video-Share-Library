@@ -78,7 +78,7 @@ function upload(counter) {
           newVideoId.value = response.data.id;
         })
         .catch((err) => {
-          if (err.response.status == 403) {
+          if (err.response.status == 403 && err.response.data == null) {
             // refresh token
             api
               .get("/token/refresh", {
@@ -97,6 +97,7 @@ function upload(counter) {
                 user.logout();
               });
           } else {
+            console.log(err.response.data);
             for (let key in err.response.data) {
               errLabel.value = err.response.data[key];
             }

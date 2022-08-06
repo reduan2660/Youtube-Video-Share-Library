@@ -8,6 +8,7 @@ export const useUserStore = defineStore({
     loggedIn: false,
     access_token: "",
     refresh_token: "",
+    verified: true,
   }),
   getters: {},
   actions: {
@@ -17,6 +18,10 @@ export const useUserStore = defineStore({
       this.loggedIn = true;
       this.access_token = new_access_token;
       this.refresh_token = new_refresh_token;
+    },
+
+    setUser(isverified) {
+      this.verified = isverified;
     },
 
     logout() {

@@ -29,6 +29,11 @@ const router = createRouter({
       name: "myvideos",
       component: () => import("../views/MyVideoView.vue"),
     },
+    {
+      path: "/verify/email/:email/code/:code",
+      name: "verify",
+      component: () => import("../views/VerifyView.vue"),
+    },
   ],
 });
 

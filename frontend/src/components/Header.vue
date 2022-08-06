@@ -1,4 +1,5 @@
 <template>
+  <EmailVerificationAlertVue v-if="user.loggedIn && user.verified == false" />
   <div class="px-4 py-4 flex justify-between">
     <div
       @click="this.$router.push({ name: 'home' })"
@@ -12,7 +13,7 @@
         <font-awesome-icon icon="sun" />
       </Btn>
       <Btn @click="upload">
-        <font-awesome-icon icon="circle-plus" /> Upload Video</Btn
+        <font-awesome-icon icon="circle-plus" /> Add Video</Btn
       >
       <div @click="profile" class="ml-3 mr-4 cursor-pointer">
         <Btn> <font-awesome-icon icon="user" /> </Btn>
@@ -28,6 +29,7 @@ import Btn from "./Btn.vue";
 import LoginVue from "../components/Login.vue";
 import { useUserStore } from "../stores/user.js";
 import { useRouter } from "vue-router";
+import EmailVerificationAlertVue from "./EmailVerificationAlert.vue";
 
 const user = useUserStore();
 const router = useRouter();

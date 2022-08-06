@@ -1,8 +1,24 @@
 <template>
-  <ModalVue label="Sign in to continue" :open="openModal"
+  <ModalVue :label="labels[actionMode].modal" :open="openModal"
     ><div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
       <div class="pb-6 px-6 lg:px-8">
-        <form class="space-y-6" action="#">
+        <form class="space-y-6" @submit.prevent="processSubmission">
+          <div v-if="actionMode == 'registration'">
+            <label
+              for="name"
+              class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+              >Your name</label
+            >
+            <input
+              type="text"
+              name="name"
+              id="name"
+              v-model="name"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+              placeholder="Your name"
+              required
+            />
+          </div>
           <div>
             <label
               for="email"
@@ -35,26 +51,32 @@
               required
             />
           </div>
-          <div class="flex justify-between">
+          <!-- <div class="flex justify-between">
             <div class="flex items-end"></div>
             <a
               href="#"
               class="text-sm text-blue-700 hover:underline dark:text-blue-500"
               >Lost Password?</a
             >
-          </div>
+          </div> -->
           <button
             type="submit"
-            @click.prevent="login"
             class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
           >
-            Login to your account
+            {{ labels[actionMode].submitBtn }}
           </button>
-          <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-            Not registered?
-            <a href="#" class="text-blue-700 hover:underline dark:text-blue-500"
-              >Create account</a
+          <div class="flex flex-row items-center">
+            <div
+              class="mr-2 text-sm font-medium text-gray-500 dark:text-gray-300"
             >
+              {{ labels[actionMode].toggleHelper }}
+            </div>
+            <div
+              @click="toggleMode"
+              class="cursor-pointer text-blue-700 hover:underline dark:text-blue-500"
+            >
+              {{ labels[actionMode].toggleBtn }}
+            </div>
           </div>
         </form>
       </div>
@@ -72,6 +94,7 @@ import { useRouter } from "vue-router";
 const user = useUserStore();
 const router = useRouter();
 
+let name = ref("");
 let email = ref("");
 let password = ref("");
 
@@ -88,6 +111,23 @@ const props = defineProps({
 
 const openModal = ref(props.open);
 
+const labels = ref({
+  login: {
+    modal: "Sign in to continue",
+    submitBtn: "Login to your account",
+    toggleHelper: "Not registered?",
+    toggleBtn: "Create account",
+  },
+  registration: {
+    modal: "Create an account",
+    submitBtn: "Sign up",
+    toggleHelper: "Already have an account?",
+    toggleBtn: "Login instead",
+  },
+});
+
+const actionMode = ref("login");
+
 function login() {
   api
     .get("/user/login", {
@@ -98,8 +138,41 @@ function login() {
     })
     .then((response) => {
       user.setToken(response.data.access_token, response.data.refresh_token);
+
+      api
+        .get("/user/profile", {
+          headers: {
+            AUTHORIZATION: `Bearer ${response.data.access_token}`,
+          },
+        })
+        .then((response) => {
+          user.setUser(response.data.verified);
+        });
+
       router.push({ name: props.onSuccess });
       openModal.value = false;
     });
+}
+
+function registration() {
+  api
+    .post("/user/registration", {
+      name: name.value,
+      email: email.value,
+      password: password.value,
+    })
+    .then((response) => {
+      login();
+    });
+}
+
+function processSubmission() {
+  if (actionMode.value == "login") login();
+  else if (actionMode.value == "registration") registration();
+}
+
+function toggleMode() {
+  if (actionMode.value == "login") actionMode.value = "registration";
+  else if (actionMode.value == "registration") actionMode.value = "login";
 }
 </script>
