@@ -112,7 +112,7 @@ public class AppUserController {
     public ResponseEntity<Map<String, Boolean>> resendVerificationCode(HttpServletRequest request){
         Map<String, Boolean> status = new HashMap<>();
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        status.put("Status", appUserService.resendVerification(appUserService.getUser((String) auth.getPrincipal()), getSiteURL(request)));
+        status.put("Status", appUserService.resendVerification(appUserService.getUser((String) auth.getPrincipal()), request.getHeader("Origin")));
         return ResponseEntity.ok().body(status);
     }
 

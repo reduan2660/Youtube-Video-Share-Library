@@ -34,7 +34,7 @@ public class EmailService {
                 + "YT-Video-Share-Library";
 
         content = content.replace("[[name]]", user.getName());
-        String verifyURL = "" + siteurl + "/user/verify?code=" + user.getVerificationCode() + "&email=[[EMAIL]]";
+        String verifyURL = "" + siteurl + "/verify/email/[[EMAIL]]/code/" + user.getVerificationCode();
         content = content.replace("[[URL]]", verifyURL);
         content = content.replace("[[EMAIL]]", user.getEmail());
 
