@@ -8,4 +8,4 @@
 
 ### The project is live [HERE](http://ytvideshare-frontend-1234.s3-website.us-east-2.amazonaws.com/).
 
-### The API endpoints can be found [HERE](http://ec2-18-118-154-167.us-east-2.compute.amazonaws.com:8080/swagger-ui/index.html)
+### The API endpoints can be found [HERE](http://ec2-3-137-214-91.us-east-2.compute.amazonaws.com:8080/swagger-ui/index.html)
