@@ -45,7 +45,7 @@ function loadVideos() {
   loadMoreLabel.value = "Loading";
 
   api
-    .get(`/video/explore?page=${page.value}&size=10&search=${user.searchQuery}`)
+    .get(`/video/explore?page=${page.value}&size=12&search=${user.searchQuery}`)
     .then((response) => {
       response.data.forEach((video) => {
         videos.value.push(video);
