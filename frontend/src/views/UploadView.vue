@@ -24,6 +24,11 @@
       />
     </div>
 
+    <div class="pt-12 text-blue-400">
+      <a href="https://youtu.be/r_rvfWVxvms" target="_blank"
+        >How to upload a video?</a
+      >
+    </div>
     <div class="pt-12 text-red-400">{{ errLabel }}</div>
 
     <div class="pt-12">
