@@ -9,6 +9,7 @@ export const useUserStore = defineStore({
     access_token: "",
     refresh_token: "",
     verified: true,
+    searchQuery: "",
   }),
   getters: {},
   actions: {
@@ -22,6 +23,10 @@ export const useUserStore = defineStore({
 
     setUser(isverified) {
       this.verified = isverified;
+    },
+
+    setsearchQuery(new_Search_query) {
+      this.searchQuery = new_Search_query;
     },
 
     logout() {

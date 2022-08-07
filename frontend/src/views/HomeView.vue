@@ -18,9 +18,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import api from "../http-common.js";
 import VideoVue from "../components/Video.vue";
+import { useUserStore } from "../stores/user.js";
+
+const user = useUserStore();
 
 const videos = ref([]);
 const loadMoreLabel = ref("Load More");
@@ -30,17 +33,27 @@ onMounted(() => {
   loadVideos();
 });
 
+watch(
+  () => user.searchQuery,
+  () => {
+    videos.value = [];
+    loadVideos();
+  }
+);
+
 function loadVideos() {
   loadMoreLabel.value = "Loading";
 
-  api.get(`/video/explore?page=${page.value}&size=10`).then((response) => {
-    response.data.forEach((video) => {
-      videos.value.push(video);
-    });
+  api
+    .get(`/video/explore?page=${page.value}&size=10&search=${user.searchQuery}`)
+    .then((response) => {
+      response.data.forEach((video) => {
+        videos.value.push(video);
+      });
 
-    if (response.data.length == 0) loadMoreLabel.value = "No more videos";
-    else loadMoreLabel.value = "Load More";
-  });
+      if (response.data.length == 0) loadMoreLabel.value = "No more videos";
+      else loadMoreLabel.value = "Load More";
+    });
 }
 
 function loadMore() {
