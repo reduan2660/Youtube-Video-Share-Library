@@ -7,7 +7,7 @@
           <div v-if="reaction.liked" class="text-green-300">
             <font-awesome-icon icon="thumbs-up" class="icon alt" />
           </div>
-          <div v-else-if="reaction.disliked">
+          <div v-else-if="reaction.disliked" class="text-red-300">
             <font-awesome-icon icon="thumbs-down" class="icon alt" />
           </div>
         </div>

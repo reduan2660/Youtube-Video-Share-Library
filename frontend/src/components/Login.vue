@@ -149,7 +149,7 @@ function login() {
           user.setUser(response.data.verified);
         });
 
-      router.push({ name: props.onSuccess });
+      if (props.onSuccess != "return") router.push({ name: props.onSuccess });
       openModal.value = false;
     });
 }
