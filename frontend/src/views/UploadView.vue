@@ -63,7 +63,7 @@ function upload(counter) {
   if (!uploadSuccess.value) {
     if (counter < 2) {
       errLabel.value = "";
-
+      btnLabel.value = "Uploading";
       api
         .post(
           "/video/upload",
@@ -99,6 +99,7 @@ function upload(counter) {
                 upload(counter + 1);
               })
               .catch((err) => {
+                btnLabel.value = "Upload";
                 user.logout();
               });
           } else {

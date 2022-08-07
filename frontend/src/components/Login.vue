@@ -53,9 +53,7 @@
           </div>
           <div class="flex justify-center" v-if="loginerror">
             <div class="flex items-center"></div>
-            <span href="#" class="text-sm text-red-500"
-              >Failed to login. Please check your credentials.</span
-            >
+            <span href="#" class="text-sm text-red-500">{{ errlabel }}</span>
           </div>
           <button
             type="submit"
@@ -96,6 +94,7 @@ let name = ref("");
 let email = ref("");
 let password = ref("");
 const loginerror = ref(false);
+const errlabel = ref("Failed to login. Please check your credentials.");
 
 const props = defineProps({
   open: {
@@ -128,6 +127,8 @@ const labels = ref({
 const actionMode = ref("login");
 
 function login() {
+  labels.value.login.submitBtn = "Processing";
+  loginerror.value = false;
   api
     .get("/user/login", {
       params: {
@@ -136,6 +137,8 @@ function login() {
       },
     })
     .then((response) => {
+      labels.value.login.submitBtn = "Logged in";
+
       user.setToken(response.data.access_token, response.data.refresh_token);
 
       api
@@ -152,11 +155,15 @@ function login() {
       openModal.value = false;
     })
     .catch((err) => {
+      labels.value.login.submitBtn = "Login to your account";
+      errlabel.value = "Failed to login. Please check your credentials.";
       loginerror.value = true;
     });
 }
 
 function registration() {
+  loginerror.value = false;
+  labels.value.registration.submitBtn = "Signing up";
   api
     .post("/user/registration", {
       name: name.value,
@@ -164,7 +171,15 @@ function registration() {
       password: password.value,
     })
     .then((response) => {
+      labels.value.registration.submitBtn = "Signed up";
       login();
+    })
+    .catch((err) => {
+      for (let key in err.response.data) {
+        errlabel.value = err.response.data[key];
+      }
+      loginerror.value = true;
+      labels.value.registration.submitBtn = "Sign up";
     });
 }
 
