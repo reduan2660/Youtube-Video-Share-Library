@@ -1,5 +1,4 @@
 import { defineStore } from "pinia";
-import { useCookies } from "vue3-cookies";
 import api from "../http-common.js";
 
 export const useUserStore = defineStore({
@@ -14,11 +13,11 @@ export const useUserStore = defineStore({
   getters: {},
   actions: {
     setToken(new_access_token, new_refresh_token) {
-      const { cookies } = useCookies();
-
       this.loggedIn = true;
       this.access_token = new_access_token;
       this.refresh_token = new_refresh_token;
+
+      localStorage.setItem("refresh_token", new_refresh_token);
     },
 
     setUser(isverified) {
