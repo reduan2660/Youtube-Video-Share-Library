@@ -5,7 +5,7 @@
     >
       <div v-for="video in videos" :key="video.id">
         <VideoVue
-          @click="this.$router.push(`/video/${video.id}`)"
+          @click="openVideo(video.id)"
           :info="video"
         />
       </div>
@@ -22,12 +22,18 @@ import { ref, onMounted, watch } from "vue";
 import api from "../http-common.js";
 import VideoVue from "../components/Video.vue";
 import { useUserStore } from "../stores/user.js";
+import { useRouter } from "vue-router";
+
 
 const user = useUserStore();
+const router = useRouter();
+
 
 const videos = ref([]);
 const loadMoreLabel = ref("Load More");
 const page = ref(0);
+
+const self = this;
 
 onMounted(() => {
   loadVideos();
@@ -61,5 +67,8 @@ function loadMore() {
   loadVideos();
 }
 
-function openVideo(id) {}
+function openVideo(id) {
+
+  router.push(`/video/${id}`)
+}
 </script>
