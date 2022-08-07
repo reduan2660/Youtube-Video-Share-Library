@@ -13,6 +13,7 @@ import java.util.List;
 public interface VideoRepo extends PagingAndSortingRepository<Video, Long> {
     Video findVideoById(Long id);
     List<Video> findAllByPublishedIsTrue(Pageable pageable);
+    List<Video> findAllByPublishedIsTrueAndNameIsLike(String name, Pageable pageable) ;
     List<Video> findAllByOwnerIs(AppUser owner, Pageable pageable);
 
     @Modifying @Transactional @Query("UPDATE Video set likes=likes+1 where id=:id")

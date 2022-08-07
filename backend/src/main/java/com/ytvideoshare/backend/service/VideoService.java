@@ -69,11 +69,13 @@ public class VideoService {
      * @param sortBy which field to sort by
      * @return List<VideoResponse>
      */
-    public List<VideoResponse> getPublishedVideos(int page, int size, String sortBy){
+    public List<VideoResponse> getPublishedVideos(int page, int size, String sortBy, String search){
         Pageable paging = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC,sortBy));
         List<VideoResponse> videoResponses = new ArrayList<>();
 
-        videoRepo.findAllByPublishedIsTrue(paging).forEach(video -> {
+        String nameLike = "%" + search +"%";
+
+        videoRepo.findAllByPublishedIsTrueAndNameIsLike(nameLike, paging).forEach(video -> {
             videoResponses.add(new VideoResponse(video));
         });
 

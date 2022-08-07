@@ -80,9 +80,10 @@ public class VideoController {
     public ResponseEntity<List<VideoResponse>> exploreVideos(
             @RequestParam(defaultValue = "0") Integer page,
             @RequestParam(defaultValue = "5") Integer size,
-            @RequestParam(defaultValue = "likes") String sortBy
+            @RequestParam(defaultValue = "likes") String sortBy,
+            @RequestParam(defaultValue = "") String search
     ){
-        return  ResponseEntity.ok().body(videoService.getPublishedVideos(page, size, sortBy));
+        return  ResponseEntity.ok().body(videoService.getPublishedVideos(page, size, sortBy, search));
     }
 
     /**
